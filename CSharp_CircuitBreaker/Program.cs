@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CSharp_CircuitBreaker.Implementation;
+using CSharp_CircuitBreaker.Model.Exception;
+using System;
+using System.Diagnostics;
 
 namespace CSharp_CircuitBreaker
 {
@@ -6,7 +9,24 @@ namespace CSharp_CircuitBreaker
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var cb = new CircuitBreaker(5,5000);
+            try
+            {
+                cb.Execute(() =>
+                {
+                    throw new Exception();
+                });
+            }
+            catch (CircuitBreakerOperationException ex)
+            {
+                Trace.Write(ex);
+            }
+            catch (OpenCircuitException )
+            {
+                Console.Write(cb.IsOpen);
+            }
+            Console.Write(cb.IsClosed);
+            Console.Read();
         }
     }
 }

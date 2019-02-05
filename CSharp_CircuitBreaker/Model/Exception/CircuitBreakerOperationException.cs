@@ -6,7 +6,7 @@ namespace CSharp_CircuitBreaker.Model.Exception
 {
     public class CircuitBreakerOperationException : SystemException
     {
-        public CircuitBreakerOperationException(string message) : base(message)
+        public CircuitBreakerOperationException(string message, System.Exception innerException) : base(message, innerException)
         {
 
         }
